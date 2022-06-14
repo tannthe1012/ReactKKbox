@@ -28,7 +28,7 @@ const Login: React.FC<Props> = ({ history }) => {
       history.push("/report");
       window.location.reload();
     }
-  }, [])
+  },[])
   
   
   const validationSchema = Yup.object().shape({
