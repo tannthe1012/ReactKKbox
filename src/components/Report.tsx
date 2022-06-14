@@ -3,7 +3,8 @@ import {Grid, Typography, Box, Card} from "@mui/material";
 import {getDataReport, getReport} from "../services/report.service";
 import { getCurrentUser } from "../services/auth.service";
 import { RouteComponentProps } from "react-router-dom";
-import {Table} from "../components/Table";
+import Table from "../components/Table";
+import Table2 from "../components/TableSort";
 import "../App.css";
 type Props = RouteComponentProps<RouterProps>;
 interface RouterProps {
@@ -147,7 +148,8 @@ const Report: React.FC<Props> = ({history}) => {
         </Grid>
   
       </Grid>
-      <Table data= {dataReport} ></Table>
+      <Table data={dataReport}></Table>
+      <Table2></Table2>
     </div>
 
 
