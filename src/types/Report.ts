@@ -1,4 +1,5 @@
 export type Report = {
+    ReportID:number;
     ClientID : number;
     Success: number;
     Failed: number;

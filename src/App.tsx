@@ -26,7 +26,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
-    console.log(user);
     if (user) {
       setCurrentUser(user);
       // setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));

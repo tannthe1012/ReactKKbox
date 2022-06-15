@@ -9,8 +9,8 @@ export const getDataReport = () => {
     return reponse.data
   });
 };
-export const getReport = () => {
-  return axios.get(API_URL + "/clients" + "?skip=0&limit=40&stringfilter", { headers: authHeader() }).then((reponse) => {
+export const getReport = (skip:number, limit:number) => {
+  return axios.get(API_URL + "/clients" + `?skip=${skip}&limit=${limit}&stringfilter`, { headers: authHeader() }).then((reponse) => {
     return reponse.data.Data
   });
 };
