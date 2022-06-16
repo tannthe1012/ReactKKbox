@@ -2,23 +2,23 @@ import { MouseEventHandler, useCallback, useState } from "react";
 import data from "../data.json";
 
 type Data = typeof data;
-type SortKeys = keyof Data[0];
+type sortkeys = keyof Data[0];
 
-type SortOrder = "ascn" | "desc";
+type sortorder = "ascn" | "desc";
 
 function sortData({
   tableData,
-  sortKey,
+  sortkey,
   reverse,
 }: {
   tableData: Data;
-  sortKey: SortKeys;
+  sortkey: sortkeys;
   reverse: boolean;
 }) {
-  if (!sortKey) return tableData;
+  if (!sortkey) return tableData;
 
   const sortedData = data.sort((a, b) => {
-    return a[sortKey] > b[sortKey] ? 1 : -1;
+    return a[sortkey] > b[sortkey] ? 1 : -1;
   });
 
   if (reverse) {
@@ -29,20 +29,20 @@ function sortData({
 }
 
 function SortButton({
-  sortOrder,
+  sortorder,
   columnKey,
-  sortKey,
+  sortkey,
   onClick,
 }: {
-  sortOrder: SortOrder;
-  columnKey: SortKeys;
-  sortKey: SortKeys;
+  sortorder: sortorder;
+  columnKey: sortkeys;
+  sortkey: sortkeys;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }) {
   return (
     <button
       onClick={onClick}
-      className={`${sortKey === columnKey && sortOrder === "desc"
+      className={`${sortkey === columnKey && sortorder === "desc"
           ? "sort-button sort-reverse"
           : "sort-button"
         }`}
@@ -53,11 +53,11 @@ function SortButton({
 }
 
 function SortableTable() {
-  const [sortKey, setSortKey] = useState<SortKeys>("last_name");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("ascn");
+  const [sortkey, setsortkey] = useState<sortkeys>("last_name");
+  const [sortorder, setsortorder] = useState<sortorder>("ascn");
 
 
-  const headers: { key: SortKeys; label: string }[] = [
+  const headers: { key: sortkeys; label: string }[] = [
     { key: "id", label: "ID" },
     { key: "first_name", label: "First name" },
     { key: "last_name", label: "Last name" },
@@ -67,14 +67,14 @@ function SortableTable() {
   ];
 
   const sortedData = useCallback(
-    () => sortData({ tableData: data, sortKey, reverse: sortOrder === "desc" }),
-    [data, sortKey, sortOrder]
+    () => sortData({ tableData: data, sortkey, reverse: sortorder === "desc" }),
+    [data, sortkey, sortorder]
   );
 
-  function changeSort(key: SortKeys) {
-    setSortOrder(sortOrder === "ascn" ? "desc" : "ascn");
+  function changeSort(key: sortkeys) {
+    setsortorder(sortorder === "ascn" ? "desc" : "ascn");
 
-    setSortKey(key);
+    setsortkey(key);
   }
 
   return (
@@ -89,8 +89,8 @@ function SortableTable() {
                   columnKey={row.key}
                   onClick={() => changeSort(row.key)}
                   {...{
-                    sortOrder,
-                    sortKey,
+                    sortorder,
+                    sortkey,
                   }}
                 />
               </td>

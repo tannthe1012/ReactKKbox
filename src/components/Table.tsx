@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import '../style/Table.css';
 import { Report } from "../types/Report";
+import Moment from 'moment';
 
 
 type Data = {
@@ -20,21 +21,21 @@ type Data = {
   SPH: number;
   LastUpdate: string;
 }[];
-type SortKeys = keyof Data[0];
-type SortOrder = "ascn" | "desc";
+type sortkeys = keyof Data[0];
+type sortorder = "ascn" | "desc";
 function sortData(data : Report[] ,{
   tableData,
-  sortKey,
+  sortkey,
   reverse,
 }: {
   tableData: Data;
-  sortKey: SortKeys;
+  sortkey: sortkeys;
   reverse: boolean;
 }) {
-  if (!sortKey) return tableData;
+  if (!sortkey) return tableData;
 
   const sortedData = data.sort((a, b) => {
-    return a[sortKey] > b[sortKey] ? 1 : -1;
+    return a[sortkey] > b[sortkey] ? 1 : -1;
   });
 
   if (reverse) {
@@ -43,6 +44,10 @@ function sortData(data : Report[] ,{
 
   return sortedData;
 }
+const formatDate = (date: string) => {
+  // return date;
+  return Moment(date).format('DD-MM-YYYY HH:mm:ss');
+} 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -69,10 +74,10 @@ type Pros = {
 
 
 export default function CustomizedTables({data} : Pros) {
-  const [sortKey, setSortKey] = useState<SortKeys>("ClientID");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("ascn");
+  const [sortkey, setsortkey] = useState<sortkeys>("ClientID");
+  const [sortorder, setsortorder] = useState<sortorder>("ascn");
 
-  const headers: {key:SortKeys; label: string}[] =  [
+  const headers: {key:sortkeys; label: string}[] =  [
     {key : "ReportID", label: "STT"},
     {key : "ClientID", label: "ClientID"},
     {key : "Address", label: "Address"},
@@ -83,14 +88,14 @@ export default function CustomizedTables({data} : Pros) {
   ];
 
   const sortedData = useCallback(
-    () => sortData(data ,{ tableData: data, sortKey, reverse: sortOrder === "desc"}),
-    [data, sortKey, sortOrder]
+    () => sortData(data ,{ tableData: data, sortkey, reverse: sortorder === "desc"}),
+    [data, sortkey, sortorder]
   );
 
-  function changeSort(key: SortKeys) {
-    setSortOrder(sortOrder === "ascn" ? "desc" : "ascn");
+  function changeSort(key: sortkeys) {
+    setsortorder(sortorder === "ascn" ? "desc" : "ascn");
 
-    setSortKey(key);
+    setsortkey(key);
   }
 
 
@@ -110,8 +115,8 @@ export default function CustomizedTables({data} : Pros) {
                   align='center'
                   onClick={() => changeSort(row.key)}
                   {...{
-                    sortOrder,
-                    sortKey,
+                    sortorder,
+                    sortkey,
                   }}
                 >
 
@@ -120,29 +125,11 @@ export default function CustomizedTables({data} : Pros) {
                 </StyledTableCell>
               );
             })}
-            {/* <StyledTableCell>STT</StyledTableCell>
-            <StyledTableCell>ClientID</StyledTableCell>
-            <StyledTableCell align="center">Address</StyledTableCell>
-            <StyledTableCell align="center">Success</StyledTableCell>
-            <StyledTableCell align="center">Failed</StyledTableCell>
-            <StyledTableCell align="center">SPH</StyledTableCell> */}
+           
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {sortedData().map((row, index) => (
-            <StyledTableRow key={row.ReportID}>
-              <StyledTableCell component="th" scope="row">
-                {index + 1}
-              </StyledTableCell>
-              <StyledTableCell component="th" scope="row">
-                {row.ClientID}
-              </StyledTableCell>
-              <StyledTableCell align="center">{row.Address}</StyledTableCell>
-              <StyledTableCell align="center">{row.Success}</StyledTableCell>
-              <StyledTableCell align="center">{row.Failed}</StyledTableCell>
-              <StyledTableCell align="center">{row.SPH}</StyledTableCell>
-            </StyledTableRow>
-          ))} */}
+         
           {sortedData().map((row, index) => {
             return (
               <StyledTableRow key={row.ReportID}>
@@ -156,7 +143,7 @@ export default function CustomizedTables({data} : Pros) {
                 <StyledTableCell align="center">{row.Success}</StyledTableCell>
                 <StyledTableCell align="center">{row.Failed}</StyledTableCell>
                 <StyledTableCell align="center">{row.SPH}</StyledTableCell>
-                <StyledTableCell align="center">{row.LastUpdate}</StyledTableCell>
+                <StyledTableCell align="center">{formatDate(row.LastUpdate)}</StyledTableCell>
               </StyledTableRow>
             )
             })}

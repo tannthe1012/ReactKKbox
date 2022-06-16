@@ -104,3 +104,12 @@ color: #e9d7d7!important;
 .pagination>p {
   margin-bottom: 0px!important;
 }
+.flex {
+  display: flex;
+}
+.button-export button{
+  height: 100%;
+  margin-left: 20px;
+  background-color: green!important;
+  color: #ffffff!important;
+}
