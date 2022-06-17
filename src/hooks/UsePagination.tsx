@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { createNamedExports } from "typescript";
+import { useState, useEffect } from "react";
 interface Gap {
   before: boolean;
   paginationGroup: number[];
@@ -26,9 +25,9 @@ const usePagination: UsePagination = ({ contentPerPage, count }) => {
     if (pageCount > 2) {
       const temp = new Array(pageCount - 2).fill(1).map((_, i) => i + 2);
       setPagesInBetween(temp);
-    } else if (pageCount == 2){
+    } else if (pageCount === 2){
       setPagesInBetween([2]);
-    } else if (pageCount == 1) {
+    } else if (pageCount === 1) {
       setPagesInBetween([]);
     }
   }, [pageCount]);

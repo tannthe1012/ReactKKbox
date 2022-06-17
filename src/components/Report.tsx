@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Typography, Box, Card, InputLabel, MenuItem, FormControl } from "@mui/material";
-import { getDataReport, getReport, getAllReport } from "../services/report.service";
+import { getDataReport, getReport } from "../services/report.service";
 import { getCurrentUser } from "../services/auth.service";
 import { RouteComponentProps } from "react-router-dom";
 import { ExportCSV } from "./Excel/ExportToCsv";
@@ -8,8 +8,7 @@ import Table from "../components/Table";
 import usePagination from "../hooks/UsePagination";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import "../App.css";
-import Moment, { now } from 'moment';
-import { randomInt } from "crypto";
+import Moment from 'moment';
 type Props = RouteComponentProps<RouterProps>;
 interface RouterProps {
   history: string;
@@ -26,8 +25,6 @@ const Report: React.FC<Props> = ({ history }) => {
   const [dataReport, setDataReport] = useState([]);
   const [perPage, setPerPage] = useState<string>('100');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [dataAll, setDataAll] = useState([]);
-  const tableRef = useRef(null);
 
   const handleChange = (event: SelectChangeEvent) => {
     setPage(1);
@@ -40,8 +37,6 @@ const Report: React.FC<Props> = ({ history }) => {
     })
   };
   const {
-    firstContentIndex,
-    lastContentIndex,
     nextPage,
     prevPage,
     page,
@@ -86,15 +81,6 @@ const Report: React.FC<Props> = ({ history }) => {
   const getFileName = () => {
     return Moment(Date.now()).format('DD-MM-YYYY:HH:mm:ss');
   }
-  console.log(currentPage)
-  // const onClickExportAll = async () => {
-  //   await getAllReport().then((res) => {
-  //     setDataAll(res)
-  //   }, (error) => {
-  //     console.log(error)
-  //   })
-
-  // }
 
 
   useEffect(() => {

@@ -16,14 +16,19 @@ type Pros = {
 
 export default function RangeSlider({start, end, min, max, parentCallback}: Pros) {
   const [value, setValue] = React.useState<number[]>([start, end]);
-
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
     parentCallback(newValue as number[]);
   };
+  React.useEffect(() => 
+  { 
+    console.log("star thay doi")
+    setValue([start, end]) 
+  }, [start, end]);
 
   return (
-    <Box sx={{ width: 600 }}>
+    <Box sx={{ maxWidth: 600 }}>
+      
       <Slider
         getAriaLabel={() => 'Temperature range'}
         value={value}
