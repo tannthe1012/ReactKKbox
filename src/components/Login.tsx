@@ -26,7 +26,7 @@ const Login: React.FC<Props> = ({ history }) => {
     const currentUser = getCurrentUser();
     if (currentUser) {
       history.push("/report");
-      window.location.reload();
+      // window.location.reload();
     }
   },[])
   
@@ -58,6 +58,7 @@ const Login: React.FC<Props> = ({ history }) => {
 
         setLoading(false);
         setMessage(resMessage);
+        // console.log(error)
       }
     );
   };

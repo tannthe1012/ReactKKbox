@@ -23,7 +23,7 @@ const Report: React.FC<Props> = ({ history }) => {
   const [sph, setSPH] = useState<number>(0);
   const [averageSPH, setAverageSPH] = useState<number>(0);
   const [dataReport, setDataReport] = useState([]);
-  const [perPage, setPerPage] = useState<string>('100');
+  const [perPage, setPerPage] = useState<string>('1000');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -86,7 +86,7 @@ const Report: React.FC<Props> = ({ history }) => {
   useEffect(() => {
     if (!currentUser) {
       history.push("/login");
-      window.location.reload();
+      // window.location.reload();
     }
     getDataReport().then((res) => {
       setCountSuccess(res.Data.CountSuccess)
@@ -109,7 +109,7 @@ const Report: React.FC<Props> = ({ history }) => {
 
 
 
-    return () => {
+    
       setInterval(() => {
         getDataReport().then((res) => {
           setCountSuccess(res.Data.CountSuccess)
@@ -128,7 +128,7 @@ const Report: React.FC<Props> = ({ history }) => {
         })
       }, 5000);
 
-    }
+    
 
 
 

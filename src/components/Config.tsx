@@ -41,9 +41,10 @@ const Config: React.FC<Props> = ({ history }) => {
   useEffect(() => {
     if (!currentUser) {
       history.push("/login");
-      window.location.reload();
+      // window.location.reload();
     }
     getConfigs().then((res) => {
+      console.log(res);
       setStart(res.Data.PlayFrom)
       setEnd(res.Data.PlayTo);
       setRateArtist(res.Data.PercentArtist);

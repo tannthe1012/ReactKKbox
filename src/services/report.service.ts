@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://127.0.0.1:3030/api/report";
+const API_URL = "http://kkbox.xnight.ml/api/report";
 
 
 export const getDataReport = () => {

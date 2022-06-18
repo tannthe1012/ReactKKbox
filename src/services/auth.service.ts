@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:3030/api/admin/";
+const API_URL = "http://kkbox.xnight.ml/api/admin/";
 
 export const register = (username: string, password: string) => {
   return axios.post(API_URL + "signup", {

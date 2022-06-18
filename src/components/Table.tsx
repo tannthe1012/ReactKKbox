@@ -133,10 +133,10 @@ export default function CustomizedTables({data} : Pros) {
           {sortedData().map((row, index) => {
             return (
               <StyledTableRow key={row.ReportID}>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell component="th" scope="row" align="center">
                   {index + 1}
                 </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell component="th" scope="row" align="center">
                   {row.ClientID}
                 </StyledTableCell>
                 <StyledTableCell align="center">{row.Address}</StyledTableCell>

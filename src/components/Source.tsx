@@ -46,7 +46,7 @@ const Source: React.FC<Props> = ({ history }) => {
   useEffect(() => {
     if (!currentUser) {
       history.push("/login");
-      window.location.reload();
+      // window.location.reload();
     }
   })
   const handleChange = (event: SelectChangeEvent) => {
@@ -55,15 +55,15 @@ const Source: React.FC<Props> = ({ history }) => {
 
   };
   const saveLinkSource = () => {
-    console.log(valueType);
-    console.log(valueTextArea);
+    setCountLine(valueTextArea.split("\n").length)
   }
-  // const handleChangeText = (event: Event) => {
-  //   let a = event.target as HTMLInputElement;
-  //   setValueTextArea(a.value as string);
-  // }
   const handleChangeText = (event : ChangeEvent<HTMLTextAreaElement>) => {
     setValueTextArea(event.target.value);
+    if(event.target.value === null || event.target.value === "") {
+      setCountLine(0);
+    } else {
+      setCountLine(event.target.value.split("\n").length)
+    }
   };
 
   return (
